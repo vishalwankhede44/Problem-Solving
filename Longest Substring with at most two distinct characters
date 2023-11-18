@@ -1,0 +1,29 @@
+import java.util.*;
+
+class Solution {
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        int windowStart = 0,windowEnd = 0;
+        int max = 0;
+        HashMap<Character,Integer> map = new HashMap<>();
+        int k = 2;
+        while(windowEnd<s.length()){
+            
+            map.put(s.charAt(windowEnd),map.getOrDefault(s.charAt(windowEnd),0)+1);
+            
+            
+            while(map.size()>k){
+                if(map.get(s.charAt(windowStart))==1)
+                    map.remove(s.charAt(windowStart));
+                else
+                    map.put(s.charAt(windowStart),map.get(s.charAt(windowStart))-1);
+                windowStart++;
+            }
+            
+            max = Math.max(max,windowEnd-windowStart+1);
+            windowEnd++;     
+           
+           
+        }
+        return max;
+    }
+}
