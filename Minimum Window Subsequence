@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Main{
+    public static String minWindow(String s, String t) {
+        if(t.length()>s.length())
+            return "";
+
+        int length = Integer.MAX_VALUE;
+        String res = "";
+        int s1i=0,s2i=0;
+        
+        while(s1i<s.length() && s2i<t.length() && s2i>=0){
+            if(s.charAt(s1i) == t.charAt(s2i)){                
+                s2i++;
+                if(s2i == t.length()){
+                    int start = s1i;
+                    int end = s1i;
+                    s2i =t.length()-1;
+                    while(start>=0 && s2i>=0){
+                         if(s.charAt(start) == t.charAt(s2i)){
+                            s2i--;
+                            if(s2i < 0){
+                                if(length>(end-start+1)){
+                                    length = (end-start+1);
+                                    res = s.substring(start,end+1);
+                                }
+                                s2i=0;
+                                s1i = start;
+                                break;
+                            }
+                        }
+                        start--;                        
+                    }
+                }
+            }
+           
+            s1i++;
+
+        }
+        return res;
+    }
+}
